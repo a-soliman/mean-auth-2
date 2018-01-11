@@ -32,7 +32,6 @@ router.post('/user/register', upload.single('profileImage'), ( req, res ) => {
 	let errors = req.validationErrors();
 
 	if ( errors ) {
-		let flag = 'validationErrors';
 		res.send({errors});
 	}
 	else {
@@ -47,5 +46,24 @@ router.post('/user/register', upload.single('profileImage'), ( req, res ) => {
 		})
 	}
 });
+
+// Login 
+router.post('/user/login', ( req, res ) => {
+	let username 	= req.body.username;
+	let password 	= req.body.password;
+
+	// Form Validation
+	req.checkBody('username', 'Username field is required.').notEmpty();
+	req.checkBody('password', 'Password Field is required.').notEmpty();
+
+	// Check validation errors
+	let errors = req.validationErrors();
+
+	if ( errors ) {
+		res.send({errors});
+	} else {
+		console.log('Should look in the DB...')
+	}
+})
 
 module.exports = router;
