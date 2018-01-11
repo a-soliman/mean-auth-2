@@ -41,9 +41,10 @@ router.post('/user/register', upload.single('profileImage'), ( req, res ) => {
 
 		User.createUser(newUser, ( err, user ) => {
 			if ( err ) throw err;
-			res.status(200).send({status: 'success', user})
 			console.log(user);
+			res.status(200).send({status: 'success', message: 'You are now registered and can login.'});
 		})
+
 	}
 });
 
