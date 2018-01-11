@@ -67,8 +67,11 @@ router.post('/user/login', ( req, res ) => {
 	}
 	else {
 		User.findOne({ username }, ( err, user ) => {
-			if(err) {
-				res.send({success: false, message: "Invalid username"});
+			if ( err ) {
+				return res.send({success: false, message: "An error has occurred, Please try again later."});
+			}
+			if ( !user ) {
+				return res.send({success: false, message: "Invalid username"});
 			}
 			
 			bcrypt.compare(password, user.password, ( err, isMatch ) => {

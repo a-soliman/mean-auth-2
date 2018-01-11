@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
 	loginForm: FormGroup;
 	post: any;
 	username: string = '';
-	serverValidationErrors: Array<any>;
+	serverValidationErrors: Array<any> = [];
 	successMessage: string;
 
 	constructor( private fb: FormBuilder,
@@ -35,8 +35,13 @@ export class LoginComponent implements OnInit {
 				if ( res.errors) {
 					return this.serverValidationErrors = res.errors;
 				}
+
+				if ( res.success === false ) {
+					return this.serverValidationErrors.push({msg: res.message})
+				}
 				if ( res.status === 'success') {
 					this.successMessage = res.message;
+					this.serverValidationErrors = [];
 					this.loginForm.reset();
 				}
 				console.log(res);
