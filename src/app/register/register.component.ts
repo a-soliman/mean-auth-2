@@ -18,6 +18,7 @@ export class RegisterComponent implements OnInit {
 	name: string = '';
 
 	serverValidationErrors: Array<any>;
+	successMessage: string;
 
 	constructor( private fb: FormBuilder,
 				 private registerService: RegisterService ) { 
@@ -44,6 +45,10 @@ export class RegisterComponent implements OnInit {
 			.subscribe((res) => {
 				if ( res.errors) {
 					return this.serverValidationErrors = res.errors;
+				}
+
+				if ( res.status === 'success') {
+					this.successMessage = res.message;
 				}
 				console.log(res);
 			});

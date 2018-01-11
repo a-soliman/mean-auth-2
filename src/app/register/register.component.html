@@ -1,6 +1,10 @@
 <h2 class="page-header">Register</h2>
 <p>Please register using the form below</p>
 
+<div class="success-message" *ngIf="successMessage">
+	<div class="alert alert-success">{{successMessage}}</div>
+</div>
+
 <div class="errors" *ngIf="serverValidationErrors">
 	<div *ngFor="let error of serverValidationErrors">
 		<div class="alert alert-danger">{{error.msg}}</div>
