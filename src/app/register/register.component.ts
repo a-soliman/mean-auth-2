@@ -17,7 +17,7 @@ export class RegisterComponent implements OnInit {
 	description: string = '';
 	name: string = '';
 
-	errors: Array<any>;
+	serverValidationErrors: Array<any>;
 
 	constructor( private fb: FormBuilder,
 				 private registerService: RegisterService ) { 
@@ -43,7 +43,7 @@ export class RegisterComponent implements OnInit {
 		this.registerService.register(userInfo)
 			.subscribe((res) => {
 				if ( res.errors) {
-					return this.errors = res.errors;
+					return this.serverValidationErrors = res.errors;
 				}
 				console.log(res);
 			});
