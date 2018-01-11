@@ -1,11 +1,14 @@
-const express		= require('express');
-const router 		= express.Router();
-const expressValidator = require('express-validator');
+const express			= require('express');
+const router 			= express.Router();
+const expressValidator 	= require('express-validator');
 router.use(expressValidator())
-const multer		= require('multer');
-const upload		= multer({dest: './uploads'});
+const multer			= require('multer');
+const upload			= multer({dest: './uploads'});
+const passport 			= require('passport');
+const localStrategy 	= require('passport-local').Strategy;
+const bcrypt			= require('bcryptjs');
 
-const User 			= require('../../models/user');
+const User 				= require('../../models/user');
 
 router.get('/', ( req, res ) => {
 	res.send({"messagee": "working"})
@@ -48,22 +51,40 @@ router.post('/user/register', upload.single('profileImage'), ( req, res ) => {
 	}
 });
 
-// Login 
 router.post('/user/login', ( req, res ) => {
-	let username 	= req.body.username;
+	let username	= req.body.username;
 	let password 	= req.body.password;
 
 	// Form Validation
-	req.checkBody('username', 'Username field is required.').notEmpty();
-	req.checkBody('password', 'Password Field is required.').notEmpty();
-
-	// Check validation errors
+	req.checkBody('username', 'Name field is required').notEmpty();
+	req.checkBody('password', 'password field is required').notEmpty();
+	
+	// Check Validation errors
 	let errors = req.validationErrors();
 
 	if ( errors ) {
 		res.send({errors});
-	} else {
-		console.log('Should look in the DB...')
+	}
+	else {
+		User.findOne({ username }, ( err, user ) => {
+			if(err) {
+				res.send({success: false, message: "Invalid username"});
+			}
+			
+			bcrypt.compare(password, user.password, ( err, isMatch ) => {
+				if ( err ) {
+					res.send({success: false, message: "Invalid password"});
+				}
+
+				if(isMatch) {
+					res.status(200).send({status: 'success', message: 'You are now LoggedIn', user});
+				} else {
+					res.send({success: false, message: "Invalid password"});
+				}
+
+			})
+		})
+
 	}
 })
 
