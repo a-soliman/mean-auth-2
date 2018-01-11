@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
+import { RegisterService } from '../services/register.service';
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css'],
+  providers: [ RegisterService ]
 })
+
 export class RegisterComponent implements OnInit {
 
 	registerForm: FormGroup;
@@ -13,7 +17,8 @@ export class RegisterComponent implements OnInit {
 	description: string = '';
 	name: string = '';
 
-	constructor( private fb: FormBuilder) { 
+	constructor( private fb: FormBuilder,
+				 private registerService: RegisterService ) { 
 		this.registerForm = fb.group({
 			'name': [ null, Validators.compose([ Validators.required, Validators.minLength(2), Validators.maxLength(20)])],
 			'email': [ null, Validators.compose([ Validators.required, Validators.email])],
@@ -33,7 +38,11 @@ export class RegisterComponent implements OnInit {
 		this.name = userInfo.name;
 		this.description = userInfo.description;
 
-		console.log(userInfo);
+		this.registerService.register(userInfo)
+			.subscribe((res) => {
+				console.log(res);
+			});
+			
 		this.registerForm.reset();
 	}
 
