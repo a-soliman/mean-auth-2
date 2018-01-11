@@ -5,6 +5,8 @@ router.use(expressValidator())
 const multer		= require('multer');
 const upload		= multer({dest: './uploads'});
 
+const User 			= require('../../models/user');
+
 router.get('/', ( req, res ) => {
 	res.send({"messagee": "working"})
 });
@@ -13,6 +15,7 @@ router.post('/user/register', upload.single('profileImage'), ( req, res ) => {
 	
 	let name 		 = req.body.name;
 	let email 		 = req.body.email;
+	let username	 = req.body.username;
 	let password 	 = req.body.password;
 	let password2 	 = req.body.password2;
 	let profileImage = req.file ? req.file.filename : 'noImage.jpg';
@@ -33,7 +36,15 @@ router.post('/user/register', upload.single('profileImage'), ( req, res ) => {
 		res.send({errors});
 	}
 	else {
-		console.log('No Errors')
+		const newUser = new User({
+			name, email, username, password, profileImage
+		});
+
+		User.createUser(newUser, ( err, user ) => {
+			if ( err ) throw err;
+			res.status(200).send({status: 'success', user})
+			console.log(user);
+		})
 	}
 });
 
