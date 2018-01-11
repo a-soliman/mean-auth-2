@@ -30,7 +30,7 @@ router.post('/user/register', upload.single('profileImage'), ( req, res ) => {
 
 	if ( errors ) {
 		let flag = 'validationErrors';
-		res.status(400).send({ flag: flag, errors});
+		res.send({errors});
 	}
 	else {
 		console.log('No Errors')
