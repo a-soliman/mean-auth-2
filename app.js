@@ -10,6 +10,7 @@ const localStrategy 	= require('passport-local').Strategy;
 const multer			= require('multer');
 const upload			= multer({dist: './uploads'});
 const flash 			= require('connect-flash');
+const bcrypt			= require('bcryptjs');
 const mongo 			= require('mongodb');
 const mongoose 			= require('mongoose');
 
