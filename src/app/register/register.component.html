@@ -1,6 +1,10 @@
 <h2 class="page-header">Register</h2>
 <p>Please register using the form below</p>
-
+<div class="errors" *ngIf="errors">
+	<div *ngFor="let error of errors">
+		<div class="alert alert-danger">{{error.msg}}</div>
+	</div>
+</div>
 <form [formGroup]="registerForm" (ngSubmit)="register(registerForm.value)" enctype="multipart/form-data" >
 	<div class="form-group">
 		<label for="">Name</label>

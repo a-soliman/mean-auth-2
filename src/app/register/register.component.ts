@@ -17,6 +17,8 @@ export class RegisterComponent implements OnInit {
 	description: string = '';
 	name: string = '';
 
+	errors: Array<any>;
+
 	constructor( private fb: FormBuilder,
 				 private registerService: RegisterService ) { 
 		this.registerForm = fb.group({
@@ -40,9 +42,12 @@ export class RegisterComponent implements OnInit {
 
 		this.registerService.register(userInfo)
 			.subscribe((res) => {
+				if ( res.errors) {
+					return this.errors = res.errors;
+				}
 				console.log(res);
 			});
-			
+
 		this.registerForm.reset();
 	}
 
