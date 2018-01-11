@@ -49,11 +49,12 @@ export class RegisterComponent implements OnInit {
 
 				if ( res.status === 'success') {
 					this.successMessage = res.message;
+					this.registerForm.reset();
 				}
 				console.log(res);
 			});
 
-		this.registerForm.reset();
+		
 	}
 
 }

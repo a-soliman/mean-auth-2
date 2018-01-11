@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
 	post: any;
 	username: string = '';
 	serverValidationErrors: Array<any>;
+	successMessage: string;
 
 	constructor( private fb: FormBuilder,
 				 private loginService: LoginService ) { 
@@ -34,8 +35,12 @@ export class LoginComponent implements OnInit {
 				if ( res.errors) {
 					return this.serverValidationErrors = res.errors;
 				}
+				if ( res.status === 'success') {
+					this.successMessage = res.message;
+					this.loginForm.reset();
+				}
 				console.log(res);
-				this.loginForm.reset();
+				
 			})
 	}
 
