@@ -6,8 +6,10 @@ import { LoginService } from '../services/login.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  providers: [ LoginService ]
 })
+
 export class LoginComponent implements OnInit {
 
 	loginForm: FormGroup;
@@ -33,10 +35,8 @@ export class LoginComponent implements OnInit {
 					return this.serverValidationErrors = res.errors;
 				}
 				console.log(res);
+				this.loginForm.reset();
 			})
-
-		console.log(userInfo);
-		this.loginForm.reset();
 	}
 
 }
