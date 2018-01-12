@@ -89,6 +89,11 @@ router.post('/user/login', ( req, res ) => {
 		})
 
 	}
+});
+
+router.get('/user/logout', ( req, res ) => {
+	req.logout();
+	res.send({success: true, message: 'You are now loggedout.'});
 })
 
 module.exports = router;
