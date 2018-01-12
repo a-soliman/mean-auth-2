@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { LoginService } from '../services/login.service';
+import { User } from '../user';
 
 @Component({
   selector: 'app-login',
@@ -13,10 +14,12 @@ import { LoginService } from '../services/login.service';
 export class LoginComponent implements OnInit {
 
 	loginForm: FormGroup;
+	@Output('user') user = new EventEmitter();
 	post: any;
-	username: string = '';
 	serverValidationErrors: Array<any> = [];
 	successMessage: string;
+
+
 
 	constructor( private fb: FormBuilder,
 				 private loginService: LoginService ) { 
@@ -43,8 +46,8 @@ export class LoginComponent implements OnInit {
 					this.successMessage = res.message;
 					this.serverValidationErrors = [];
 					this.loginForm.reset();
+					this.user.emit(res.user)
 				}
-				console.log(res);
 				
 			})
 	}
