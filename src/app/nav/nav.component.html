@@ -17,7 +17,7 @@
 				<li *ngIf="!user"><a href="#">Login</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li *ngIf="user"><a href="#">Logout</a></li>
+				<li *ngIf="user"><a href="#" (click)="logout()">Logout</a></li>
 			</ul>
 		</div>
 	</div>
