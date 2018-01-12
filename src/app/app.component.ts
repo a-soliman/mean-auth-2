@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 
 import { SimpleService } from './services/simple.service';
-
+import { User } from './user';
 
 @Component({
   selector: 'app-root',
@@ -12,15 +12,19 @@ import { SimpleService } from './services/simple.service';
 
 export class AppComponent {
 	
-	title = 'MEAN BOILERPLATE';
+	@Output() user: User = null;
 	
 	constructor( private simpleService: SimpleService ) {}
 
 	ngOnInit() {
-		this.simpleService.getResult()
-			.subscribe((res) => {
-				console.log(res);
-			})
+		this.user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
 	}
+
+	getUser(user) {
+		this.user = user;
+		localStorage.setItem('user', JSON.stringify(this.user));
+	}
+
+
 
 }
