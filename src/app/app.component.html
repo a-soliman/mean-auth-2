@@ -1,10 +1,10 @@
-<app-nav [user]=user (dologout)=logout($event)></app-nav>
+<app-nav [user]=user (navRoute)=changeRoute($event)></app-nav>
 
 <div class="container">
-	<app-members *ngIf="user" [user]=user></app-members>
+	<app-members [user]=user *ngIf="user && route === 'members'"></app-members>
 
-	<app-login (user)=getUser($event) *ngIf="!user"></app-login>
+	<app-login (user)=getUser($event) *ngIf="!user && route ==='login'"></app-login>
 
-	<app-register *ngIf="!user"></app-register>
+	<app-register *ngIf="!user && route ==='register'"></app-register>
 </div>
 

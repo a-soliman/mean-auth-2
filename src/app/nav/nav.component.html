@@ -12,12 +12,12 @@
 		</div>
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
-				<li *ngIf="user"><a href="#">Members</a></li>
-				<li *ngIf="!user"><a href="#">Register</a></li>
-				<li *ngIf="!user"><a href="#">Login</a></li>
+				<li *ngIf="user"><a href="#" (click)="changeRoute('members')">Members</a></li>
+				<li *ngIf="!user"><a href="#" (click)="changeRoute('register')">Register</a></li>
+				<li *ngIf="!user"><a href="#" (click)="changeRoute('login')">Login</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li *ngIf="user"><a href="#" (click)="logout()">Logout</a></li>
+				<li *ngIf="user"><a href="#" (click)="changeRoute('logout')">Logout</a></li>
 			</ul>
 		</div>
 	</div>

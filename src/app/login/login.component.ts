@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
 					this.successMessage = res.message;
 					this.serverValidationErrors = [];
 					this.loginForm.reset();
-					this.user.emit(res.user)
+					this.user.emit(res.user);
 				}
 				
 			})
