@@ -1,10 +1,10 @@
 <app-nav [user]=user></app-nav>
 
 <div class="container">
-	<app-members></app-members>
+	<app-members *ngIf="user" [user]=user></app-members>
 
-	<app-login (user)=getUser($event)></app-login>
+	<app-login (user)=getUser($event) *ngIf="!user"></app-login>
 
-	<app-register></app-register>
+	<app-register *ngIf="!user"></app-register>
 </div>
 
