@@ -21,7 +21,8 @@ const db = mongoose.connection;
 const api = require('./server/routes/api');
 
 const app = express();
-const port = process.env.PORT || 3000;
+let port = process.env.PORT || 3000;
+//app.set('port', (process.env.PORT || 3000));
 
 // Logger
 app.use(logger('dev'));
@@ -83,4 +84,3 @@ app.use(function (req, res, next) {
 app.listen(port, () => {
 	console.log(`Server is running on ${port}`);
 });
-
